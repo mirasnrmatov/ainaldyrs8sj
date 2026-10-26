@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сүпханака дұғасы</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        amber: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                        }
+                    },
+                    fontFamily: {
+                        arabic: ['Amiri', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .arabic-text {
+            font-family: 'Amiri', serif;
+            line-height: 2.2;
+            direction: rtl;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #064e3b 0%, #047857 50%, #0f766e 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(16, 185, 129, 0.8); }
+        }
+        .playing-glow {
+            animation: pulse-glow 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen text-slate-800 font-sans flex flex-col justify-between">
+
+    <!-- Navbar / Header -->
+    <header class="gradient-bg text-white py-8 px-4 shadow-lg text-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-2xl mx-auto relative z-10">
+            <span class="bg-amber-500/20 text-amber-300 text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full border border-amber-400/30">Намаз дұғалары</span>
+            <h1 class="text-3xl sm:text-4xl font-bold mt-2">Сүпханака дұғасы</h1>
+            <p class="text-emerald-100 text-sm sm:text-base mt-1">Тыңдау, қайталау және жаттау платформасы</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-3xl mx-auto w-full px-4 py-6 flex-grow flex flex-col gap-6">
+
+        <!-- Prayer Text Card -->
+        <div class="glass-card rounded-2xl p-6 sm:p-8 shadow-xl border border-emerald-100 flex flex-col gap-6 transition-all">
+            
+            <!-- Arabic Text -->
+            <div class="text-center bg-emerald-50/50 p-6 rounded-xl border border-emerald-100/80">
+                <p class="text-xs text-emerald-800 font-medium mb-2 uppercase tracking-wide">Арабша мәтіні</p>
+                <div class="arabic-text text-2xl sm:text-3xl font-bold text-emerald-950">
+                    سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ ، وَتَبَارَكَ اسْمُكَ ، وَتَعَالَى جَدُّكَ ، وَلاَ إِلَهَ غَيْرُكَ
+                </div>
+            </div>
+
+            <!-- Kazakh Transcription -->
+            <div class="border-l-4 border-emerald-600 pl-4 py-1">
+                <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Транскрипциясы (Оқылуы)</p>
+                <p class="text-lg font-medium text-slate-800 mt-1">
+                    «Сүпхаанакаллааһумма уа бихамдика уа табаара касмука уа та‘аала жаддука уа лаа илааһа ғайрук»
+                </p>
+            </div>
+
+            <!-- Kazakh Translation -->
+            <div class="border-l-4 border-amber-500 pl-4 py-1">
+                <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Қазақша мағынасы</p>
+                <p class="text-base text-slate-600 italic mt-1">
+                    «Йа, Алла Тағалам! Сені барлық кемшіліктерден пәктеймін. Саған ұдайы мақтау-мадақ жаусын. Сенің атың өте мүбәрак. Сенің ұлылығың аса жоғары. Сенен өзге ешбір құдай жоқ».
+                </p>
+            </div>
+        </div>
+
+        <!-- Audio Player & Controls Container -->
+    <div class="glass-card rounded-2xl p-6 shadow-xl border border-emerald-100 flex flex-col gap-6" id="audioCard">
+        
+        <!-- Reciter Selection Header -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-emerald-50/70 p-4 rounded-xl border border-emerald-200">
+            <div class="flex items-center gap-3 w-full sm:w-auto">
+                <i class="fa-solid fa-circle-check text-emerald-600 text-xl"></i>
+                <div>
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Дұғаны оқушы:</span>
+                    <span class="text-sm font-bold text-emerald-900">Мишари Рашид әл-Афаси (Шынайы адам даусы)</span>
+                </div>
+            </div>
+
+            <!-- Target Repeat -->
+            <div class="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto border-t sm:border-t-0 pt-3 sm:pt-0 border-emerald-200/60">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-repeat text-emerald-600"></i>
+                    <select id="repeatCount" class="bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-sm font-medium focus:ring-2 focus:ring-emerald-500 focus:outline-none shadow-sm">
+                        <option value="1">1 рет</option>
+                        <option value="3">3 рет</option>
+                        <option value="7" selected>7 рет</option>
+                        <option value="10">10 рет</option>
+                        <option value="33">33 рет</option>
+                        <option value="100">100 рет</option>
+                    </select>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <span id="counterDisplay" class="bg-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
+                        0 / 7
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Big Audio Controls -->
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 py-2">
+            
+            <!-- Play / Pause Button -->
+            <button id="playBtn" onclick="toggleAudio()" class="w-full sm:w-auto min-w-[200px] bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition flex items-center justify-center gap-3 active:scale-95">
+                <i id="playIcon" class="fa-solid fa-play text-lg"></i>
+                <span id="playText">Тыңдауды бастау</span>
+            </button>
+
+            <!-- Stop Button -->
+            <button id="stopBtn" onclick="stopAudio()" class="w-full sm:w-auto min-w-[140px] bg-rose-500 hover:bg-rose-600 text-white font-semibold py-3.5 px-6 rounded-xl shadow-md transition flex items-center justify-center gap-2 active:scale-95 opacity-60 cursor-not-allowed" disabled>
+                <i class="fa-solid fa-square text-lg"></i>
+                <span>Тоқтату</span>
+            </button>
+
+            <!-- Reset Count Button -->
+            <button onclick="resetCounter()" class="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 active:scale-95" title="Санауышты нөлдеу">
+                <i class="fa-solid fa-rotate-left"></i>
+                <span class="sm:hidden">Нөлдеу</span>
+            </button>
+        </div>
+
+        <!-- Status Indicator -->
+        <div class="text-center text-sm font-medium text-slate-600 flex items-center justify-center gap-2" id="statusMessage">
+            <i class="fa-solid fa-circle-info text-emerald-600"></i>
+            <span>Мишари Рашид даусымен тыңдау үшін «Бастау» батырмасын басыңыз</span>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden shadow-inner">
+            <div id="progressBar" class="bg-emerald-500 h-full w-0 transition-all duration-300"></div>
+        </div>
+    </div>
+
+        <!-- Additional Guidance Card -->
+        <div class="glass-card rounded-2xl p-6 shadow-md border border-slate-200 text-slate-600 text-sm leading-relaxed">
+            <h2 class="text-base font-bold text-slate-800 mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-book-open text-emerald-600"></i> Дұға туралы мағлұмат
+            </h2>
+            <p>
+                «Сүпханака» дұғасы – әр намаздың алғашқы рақатында, ифтитах (намазды бастау) тәкбірінен («Аллаһу әкбар») кейін іштей оқылатын сүннет дұға. Бұл дұғамен намаз басталып, Жаратушы Алла Тағаланың ұлықтығы мен пәктігі мадақталады.
+            </p>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 text-xs text-slate-500 border-t border-slate-200 mt-6">
+        <p>© Сүпханака дұғасын үйрену және жаттау бағдарламасы</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // State variables
+        let isPlaying = false;
+        let currentCount = 0;
+        let targetCount = 7;
+        let audioElement = new Audio();
+
+        const playBtn = document.getElementById('playBtn');
+        const playIcon = document.getElementById('playIcon');
+        const playText = document.getElementById('playText');
+        const stopBtn = document.getElementById('stopBtn');
+        const repeatSelect = document.getElementById('repeatCount');
+        const counterDisplay = document.getElementById('counterDisplay');
+        const statusMessage = document.getElementById('statusMessage');
+        const progressBar = document.getElementById('progressBar');
+        const audioCard = document.getElementById('audioCard');
+
+        // Direct high quality audio recording of Sheikh Mishary Rashid Alafasy reading Subhanaka
+        const MISHARY_AUDIO_URL = "https://www.islamcan.com/audio/duas/subhanaka.mp3";
+
+        // Preload audio
+        audioElement.src = MISHARY_AUDIO_URL;
+        audioElement.preload = "auto";
+
+        // Target repeat listener
+        repeatSelect.addEventListener('change', (e) => {
+            targetCount = parseInt(e.target.value);
+            updateCounterDisplay();
+        });
+
+        function updateCounterDisplay() {
+            counterDisplay.innerText = `${currentCount} / ${targetCount}`;
+            const percentage = Math.min((currentCount / targetCount) * 100, 100);
+            progressBar.style.width = `${percentage}%`;
+        }
+
+        async function toggleAudio() {
+            if (isPlaying) {
+                pauseAudio();
+            } else {
+                startAudio();
+            }
+        }
+
+        function startAudio() {
+            if (currentCount >= targetCount) {
+                currentCount = 0;
+                updateCounterDisplay();
+            }
+
+            isPlaying = true;
+            playText.innerText = "Кідірту";
+            playIcon.className = "fa-solid fa-pause text-lg";
+            stopBtn.disabled = false;
+            stopBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+            audioCard.classList.add('playing-glow');
+            statusMessage.innerHTML = `<i class="fa-solid fa-volume-high text-emerald-600 animate-pulse"></i> Мишари Рашид оқуда...`;
+
+            audioElement.play().catch(err => {
+                statusMessage.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Дыбыс ойнату үшін интернет байланысын тексеріңіз.`;
+                pauseAudio();
+            });
+
+            audioElement.onended = () => {
+                currentCount++;
+                updateCounterDisplay();
+
+                if (currentCount < targetCount && isPlaying) {
+                    setTimeout(() => {
+                        if (isPlaying) {
+                            audioElement.currentTime = 0;
+                            audioElement.play();
+                        }
+                    }, 800);
+                } else {
+                    finishPlaying();
+                }
+            };
+        }
+
+        function pauseAudio() {
+            isPlaying = false;
+            audioElement.pause();
+            playText.innerText = "Жалғастыру";
+            playIcon.className = "fa-solid fa-play text-lg";
+            audioCard.classList.remove('playing-glow');
+            statusMessage.innerHTML = `<i class="fa-solid fa-circle-pause text-amber-500"></i> Уақытша тоқтатылды`;
+        }
+
+        function stopAudio() {
+            isPlaying = false;
+            audioElement.pause();
+            audioElement.currentTime = 0;
+            
+            playText.innerText = "Тыңдауды бастау";
+            playIcon.className = "fa-solid fa-play text-lg";
+            stopBtn.disabled = true;
+            stopBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            audioCard.classList.remove('playing-glow');
+            statusMessage.innerHTML = `<i class="fa-solid fa-circle-info text-emerald-600"></i> Тоқтатылды`;
+        }
+
+        function finishPlaying() {
+            isPlaying = false;
+            playText.innerText = "Қайта тыңдау";
+            playIcon.className = "fa-solid fa-rotate-right text-lg";
+            stopBtn.disabled = true;
+            stopBtn.classList.add('opacity-60', 'cursor-not-allowed');
+            audioCard.classList.remove('playing-glow');
+            statusMessage.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i> Қайталау аяқталды! Кабыл болсын!`;
+        }
+
+        function resetCounter() {
+            stopAudio();
+            currentCount = 0;
+            updateCounterDisplay();
+            statusMessage.innerHTML = `<i class="fa-solid fa-circle-info text-emerald-600"></i> Санауыш нөлденді`;
+        }
+    </script>
+</body>
+</html>
